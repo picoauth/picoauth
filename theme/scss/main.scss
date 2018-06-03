@@ -1,0 +1,264 @@
+@import "variables";
+@import "forms";
+
+body{
+    font-family: 'Roboto',Helvetica,sans-serif;
+    margin:0;
+    padding: 0;
+    line-height: 1.4;
+}
+
+.login_bar{
+    background: $blue-dark;
+    color:white;
+
+    a,a:visited{
+        color:white;
+        text-decoration: none;
+    }
+}
+
+.login_nav{
+    padding:0.2rem $lr-space;
+    text-align:right;
+}
+
+.head{
+    display: flex;
+    align-items:center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    
+    @media only screen and (min-width: $break-medium) {
+        padding:$lr-space 0;
+    }
+}
+
+header{
+    background: $blue-light;
+    color:white;
+    
+    a.page_title{
+        margin:0;
+        line-height: 0.95em;
+        text-decoration: none;
+        font-size: 1.7em;
+        font-weight: bold;
+        color:white;
+        margin: 10px 16px 10px $lr-space;
+        
+        &:hover{
+            color:#F2F2F2;
+        }
+        
+        @media only screen and (min-width: $break-small) {
+            font-size: 2em;
+        }
+    }
+}
+
+// Display .link button as a link
+input[type=submit].link, button.link{
+    padding:0;
+    border: none;
+    background: none;
+    display: inline;
+    color: white;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+// Profile picture
+img.profile{
+    display: inline-block;
+    vertical-align: -14px;
+    border-radius: 50%;
+    margin-right: 6px;
+    width: 40px;
+    height: 40px;
+}
+
+.navbar{
+    border-bottom: 1px solid #CCC;
+
+    ul{
+        list-style: none;
+        margin: 0 $lr-space;
+        padding:0;
+        display: flex;
+    }
+    
+    ul a {
+        text-decoration: none;
+        display: block;
+        padding: 0.8em 1em;
+        color: $blue-dark;
+        
+        &:hover{
+            background-color: darken($blue-light, 10%);
+            color:white;
+        }
+    }
+}
+
+.viewport {
+    @media only screen and (min-width: $break-large) {
+        width: 1200px;
+        margin: 0 auto;
+    }
+}
+
+.compact{
+    margin: 0 auto;
+    width: 100%;
+        
+    @media only screen and (min-width: $break-small) {
+        width: 80%;
+    }
+
+    @media only screen and (min-width: $break-medium) {
+        width: 60%;
+    }
+    
+    @media only screen and (min-width: $break-large) {
+        width: 700px;        
+    }
+}
+
+h1,h2,h3,h4,h5,h6{
+    color:$blue-dark;
+}
+h1 { font-size: 1.7em; margin: .67em 0; }
+h2 { font-size: 1.3em; margin: .75em 0; }
+h3 { font-size: 1.17em; margin: .83em 0; }
+h4 { font-size: 1.12em; margin: 1.12em 0; }
+h5 { font-size: .83em; margin: 1.5em 0; }
+h6 { font-size: .75em; margin: 1.67em 0; }
+
+.content{
+    padding: 0.5rem 0.5rem;
+    text-align: left;
+    
+    @media only screen and (min-width: $break-small) {
+        padding: 1rem $lr-space;
+    }
+}
+
+table{
+    border-collapse: collapse;
+    width:100%;
+}
+
+a,a:visited{
+    color:blue;
+}
+a{
+    text-decoration: none;
+}
+
+dl{
+    dt{
+        float:left;
+        color:lighten($blue-dark,10%);
+        font-weight:bold;
+        padding:0.1em;
+    }
+    dd{
+        padding:0.1em 0;
+    }
+}
+
+button,a.btn{
+    margin:0.15em 0 0.15em 0;
+    background-color: $blue-dark;
+    border:0px;
+    color:white;
+    border-radius: 3px;
+    cursor:pointer;
+    font-size:1.2em;
+    padding:0.4em 1em;
+    &.danger{
+        background-color: #e74c3c;
+    }
+}
+
+pre, code{
+    font-family: 'Roboto Mono', 'Courier', monospace;
+    background: #f4f4f4;
+    border: 1px solid #ddd;
+    line-height: 1.4;
+    font-size: 0.8rem;
+    border-radius: 0.3em;
+}
+
+pre {
+    padding: 0.8em 1.4em;
+    border-left: 3px solid  $blue-dark;
+    code {
+        display: block;
+        overflow-x: auto;
+        border: none;
+        border-radius: 0;
+    }
+}
+
+//login page
+.box{
+    margin-top:1em;
+    margin-bottom:2em;
+    
+    .box-title{        
+        color: white;
+        background: $blue-light;
+        border-radius: 3px 3px 0px 0px;
+        padding: 0.2em 0.4em;
+        
+        @media only screen and (min-width: $break-small) {
+            font-size: 1.15em;
+        }
+    }
+    
+    .box-content{
+        padding: 0.8rem 0.5rem;
+        border:1px solid $blue-light;
+        
+        @media only screen and (min-width: $break-small) {
+            padding: 1.2rem 1rem;
+        }
+    }
+}
+
+.underNav {
+    text-align:right;
+    font-size: 0.9rem;
+    button{
+        margin-top:0;
+        background-color: $blue-light;
+        border-radius:  0 0 3px 3px;
+        padding: 2px 5px;
+    }
+}
+
+table{
+    width:100%;
+    line-height: 1.6em;
+
+    th{
+        color:$blue-dark;
+        border-bottom: 1px solid $blue-dark;
+    }
+
+    td{
+        border-bottom: 1px solid #CDCDCD;
+    }
+}
+
+
+// IE correction
+main,section,nav,header{
+    display:block;
+}
+
+.inline{
+    display:inline-block;
+}

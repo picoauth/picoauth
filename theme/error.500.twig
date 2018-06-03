@@ -1,0 +1,28 @@
+{% extends "picoAuth_base.twig" %}
+{% set viewportClass = 'compact' %}
+
+{% block body %}
+{% autoescape %}
+
+<h1>An error occurred</h1>
+
+<h2>Error 500 (Internal Server Error)</h2>
+
+<p>Something went wrong while the server was processing your request. We're sorry about that, the problem will be resolved as soon as possible.</p>
+
+<p>If you're the site owner, refer to the application log or if the site is not publicly available activate a debug output to display the error details.</p>
+
+<p><a href="{{ "index"|link }}">Return to the main page</a></p>
+
+{% if auth.vars._exception %}
+<h2>Error details</h2>
+Turn off the <code>debug</code> option to hide the error details.
+<pre>
+<code>
+{{ auth.vars._exception }}
+</code>
+</pre>
+{% endif %}
+
+{% endautoescape %}
+{% endblock %}

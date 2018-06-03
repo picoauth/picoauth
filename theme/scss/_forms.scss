@@ -1,0 +1,46 @@
+@import "variables";
+
+.content form {
+   
+    div {
+        margin-bottom:1em;
+        position:relative;
+    }
+    
+    textarea,
+    input[type="text"],
+    input[type="search"],
+    input[type="url"],
+    input[type="email"],
+    input[type="password"]{
+        width:100%;
+        box-sizing: border-box;
+        padding: 0.1rem 0.3rem;
+        height:2em;
+        font-size: 1rem;
+        font-family : inherit;
+        border: 1px solid #aaa;
+        border-radius: 2px;
+    }
+    
+    .formBar{
+        display:flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        margin:0;
+        
+        div{
+            margin:0;
+            &:nth-child(2){
+                text-align: right;
+                font-size: 0.9rem;
+                a{
+                    display:block;
+                }
+                @media only screen and (min-width: $break-small) {
+                    font-size: 1rem;
+                }
+            }
+        }
+    }
+}

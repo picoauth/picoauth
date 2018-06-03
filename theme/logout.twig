@@ -1,0 +1,21 @@
+{% extends "picoAuth_base.twig" %}
+{% set viewportClass = 'compact' %}
+
+{% block body %}
+{% autoescape %}
+
+{% include 'partials/flashes.twig' %}
+
+<div class="box">
+    <div class="box-title">Logout</div>
+    <div class="box-content">
+        Do you really want to log out?
+        <form method="POST" action="{{ "logout"|link }}">
+            {{ csrf_field("logout") }}
+            <button type="submit" name="logout">Logout</button>
+        </form>
+    </div>
+</div>
+
+{% endautoescape %}
+{% endblock %}

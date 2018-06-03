@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<ruleset name="Pico">
+    <description>
+        PicoAuth plugin uses Pico's coding standards (mainly PHP-FIG PSR-2).
+        Original Pico standards definition at https://github.com/picocms/Pico
+    </description>
+
+    <file>src/</file>
+    <file>tests/</file>
+    <file>PicoAuth.php</file>
+
+    <!-- Check files for PHP syntax errors -->
+    <config name="php_path" value="php"/>
+    <rule ref="Generic.PHP.Syntax"/>
+
+    <!-- No deprecated function -->
+    <rule ref="Generic.PHP.DeprecatedFunctions"/>
+
+    <!-- Warning about structures which affect performance negatively -->
+    <rule ref="Generic.CodeAnalysis.ForLoopWithTestFunctionCall"/>
+
+    <!--
+        Pico follows PHP-FIG PSR-2 Coding Style,
+        but doesn't use formal namespaces for historic reasons
+    -->
+    <rule ref="PSR2">
+        <exclude name="PSR1.Classes.ClassDeclaration.MissingNamespace"/>
+    </rule>
+</ruleset>

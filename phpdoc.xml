@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<phpdoc>
+    <title>PicoAuth Plugin Documentation</title>
+    <parser>
+        <target>data/docs</target>
+    </parser>
+    <transformer>
+        <target>data/docs</target>
+    </transformer>
+    <transformations>
+        <template name="clean"/>
+    </transformations>
+    <files>
+        <file>PicoAuth.php</file>
+        <directory>src</directory>
+        <ignore>_build/*</ignore>
+        <ignore>vendor/*</ignore>
+        <ignore>test/*</ignore>
+    </files>
+</phpdoc>

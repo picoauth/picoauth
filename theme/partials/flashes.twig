@@ -1,0 +1,11 @@
+{% autoescape %}
+{% for type,flashes in auth.plugin.flashes %}
+    <div class="flash {{ type }}">
+        <ul>
+            {% for msg in flashes %}
+                <li>{{ msg }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endfor %}
+{% endautoescape %}

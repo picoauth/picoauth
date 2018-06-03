@@ -1,0 +1,41 @@
+{% extends "picoAuth_base.twig" %}
+{% set viewportClass = 'compact' %}
+
+{% block body %}
+{% autoescape %}
+
+{% include 'partials/flashes.twig' %}
+
+<div class="box">
+    <div class="box-title">Account registration</div>
+    <div class="box-content">
+        <form method="POST"  action="{{ "register"|link }}">
+            {{ csrf_field("register") }}
+            <div>
+                <label for="reg_username">Username:</label>
+                <input type="text" id="reg_username" name="username" placeholder="Username" required value="{{auth.old.username|e}}">
+            </div>
+            <div>
+                <label for="reg_email">Email:</label>
+                <input type="email" id="reg_email" name="email" placeholder="Email address" required value="{{auth.old.email|e}}">
+            </div>
+            <div>
+                <label for="reg_password">Password:</label>
+                <input type="password" id="reg_password" name="password" placeholder="Password" autocomplete="off" required>
+            </div>
+            <div>
+                <label for="reg_password2">Repeat Password:</label>
+                <input type="password" id="reg_password2" name="password_repeat" placeholder="Repeat password" autocomplete="off" required>
+            </div>
+            <div class="formBar">
+                <button type="submit">Register</button>
+                <div>
+                    Already have an account?
+                    <a href="{{ "login"|link }}">Log in</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{% endautoescape %}
+{% endblock %}

@@ -1,0 +1,289 @@
+{% extends "picoAuth_base.twig" %}
+
+{% block body %}
+{% autoescape %}
+
+{% include 'partials/flashes.twig' %}
+    
+{{ content|raw }}
+
+{%if not auth.vars.installer_step %}
+
+<h2>Server configuration test</h2>
+<p align="justify">
+Before installing PicoAuth, it is mandatory to make sure the webserver with your Pico installation is configured properly.
+Without the correct server configuration, the authorization provided by PicoAuth could be bypassed or the configuration files compromised.
+If you are using the Apache webserver, this is done for you by default by a .htaccess file provided by Pico.
+On other webservers this requires additional configuration.
+The following test results are for informational purposes only and should not be relied upon &#8211; always check the mentioned aspects yourself.
+</p>
+
+<p>
+Before using PicoAuth, please make sure this is achieved by your webserver configuration:
+</p>
+<table class="testResults">
+    <tbody>
+        <tr>
+            <td>
+                <b>Directory listing disabled</b>
+                <ul>
+                    <li>The server must not display contents of the Pico directories</li>
+                    <li>Tried on: <a href="{{auth.vars.installer_urltest.dir_listing}}">{{auth.vars.installer_urltest.dir_listing}}</a></li>
+                </ul>
+            </td>
+            <td id="dir_listing">Javascript is disabled, check manually.</td>
+        </tr>
+        <tr>
+            <td><b>Config files not accessible</b>
+                <ul>
+                    <li>The server must not serve any files from the Pico's config directory (like config.yml)</li>
+                    <li>Tried on: <a href="{{auth.vars.installer_urltest.config_file}}">{{auth.vars.installer_urltest.config_file}}</a></li>
+                </ul>
+            </td>
+            <td id="config_file">Javascript is disabled, check manually.</td>
+        </tr>
+        <tr>
+            <td><b>Content files not accessible</b>
+                <ul>
+                    <li>The server must not serve any page source files from the content directory</li>
+                    <li>Tried on: <a href="{{auth.vars.installer_urltest.content_file}}">{{auth.vars.installer_urltest.content_file}}</a></li>
+                </ul>
+            </td>
+            <td id="content_file">Javascript is disabled, check manually.</td>
+        </tr>
+        <tr>
+            <td><b>Website over HTTPS only</b>
+                <ul>
+                    <li>The Pico website should use HTTPS while using PicoAuth plugin</li>
+                    <li>Redirection from HTTP is not being checked by this test</li>
+                </ul>
+            </td>
+            <td class="{% if auth.vars.installer_https %}success{% else %}warning{% endif %}">
+                {% if auth.vars.installer_https %}
+                    <strong>SUCCESS</strong> - Served over HTTPS
+                {% else %}
+                    <strong>WARNING</strong> - Served over HTTP
+                    <br>All traffic can be seen by eavesdroppers and attackers
+                {% endif %}
+            </td>
+        </tr>        
+        <tr>
+            <td rowspan="2"><b>Sensitive Pico directories outside of web root</b>
+                <ul>
+                    <li>Directories <b>config</b> and <b>content</b> should be outside of the webserver root</li>
+                    <li>Refer to the PicoAuth documentation on how to change location of these in Pico</li>
+                </ul>
+            </td>
+            <td class="{% if auth.vars.installer_wr_config %}success{% else %}warning{% endif %}">
+                {% if auth.vars.installer_wr_config %}
+                    <strong>SUCCESS</strong> - config is on different location
+                {% else %}
+                    <strong>WARNING</strong> - config directory inside webroot
+                {% endif %}
+            </td>
+        </tr>
+        <tr>
+            <td class="{% if auth.vars.installer_wr_content %}success{% else %}warning{% endif %}">
+                {% if auth.vars.installer_wr_content %}
+                    <strong>SUCCESS</strong> - content is on different location
+                {% else %}
+                    <strong>WARNING</strong> - content directory inside webroot
+                {% endif %}
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<p>
+<a class="btn" href="{{ "PicoAuth/modules"|link }}">Continue</a>
+<a class="btn" id="repeatTest" href="javascript:void(0)">Test again</a>
+</p>
+
+<style>
+#repeatTest{
+display:none;
+}
+td.critical,td.success,td.warning {
+padding: 1rem;
+color:white;
+border: 1px solid black;
+}
+
+td.critical{
+background-color: red;
+}
+
+td.warning{
+background-color: orange;
+}
+
+td.success{
+background-color: green;
+}
+
+.testResults ul{
+margin: 0.5em 0;
+padding-left: 2em;
+}
+
+.testResults{
+margin-bottom: 3rem;
+}
+</style>
+                
+<script src="https://code.jquery.com/jquery-2.2.4.min.js" type="text/javascript"></script>
+<script src="{{ auth.plugin.defaultThemeUrl }}/js/installer.js" type="text/javascript"></script>
+<script>
+var url_check = {
+dir_listing: "{{auth.vars.installer_urltest.dir_listing}}",
+config_file: "{{auth.vars.installer_urltest.config_file}}",
+content_file: "{{auth.vars.installer_urltest.content_file}}"
+};
+</script>
+
+{% elseif auth.vars.installer_step==1 %}
+<h2>PicoAuth modules selection</h2>
+<p>Select what functionality of PicoAuth do you want to use:</p>
+
+<style>
+.moduleOption dd h3{
+margin-top: 0;
+margin-bottom: 0.3em;
+}
+.moduleOption dd{
+margin-bottom: 1em;
+}
+</style>
+
+<form method="POST" action="{{ "PicoAuth/modules"|link }}"><dl class="moduleOption">
+    {{ csrf_field() }}
+    <dt>
+        <input type="checkbox" id="chb_localAuth" name="LocalAuth" checked>
+    </dt>
+    <dd>
+        <label for="chb_localAuth">
+        <h3>Local user accounts</h3>
+        Visitors can login to the site using accounts stored.
+        User registration can be enabled.
+        </label>
+    </dd>
+    <dt>
+        <input type="checkbox" id="chb_OAuth" name="OAuth" checked>
+    </dt>
+    <dd>
+        <label for="chb_OAuth">
+        <h3>Login using OAuth</h3>
+        Visitors can login to the site using 3rd party identity provider
+        that suports the OAuth 2.0 protocol.
+        </label>
+    </dd>
+    <dt>
+        <input type="checkbox" id="chb_PageACL" name="PageACL" checked>
+    </dt>
+    <dd>
+        <label for="chb_PageACL">
+        <h3>Access control</h3>
+        Access control for Pico pages based on permissions of an authenticated user.
+        </label>
+    </dd>
+    <dt>
+        <input type="checkbox" id="chb_PageLock" name="PageLock" checked>
+    </dt>
+    <dd>
+        <label for="chb_PageLock">
+        <h3>Page locks</h3>
+        Can be used to display selected pages only after the correct page key phrase is entered.
+        Does not require authenticated user.
+        </label>
+    </dd>
+</dl>
+<button type="submit" name="generate">Generate configuration</button>
+</form>
+    
+{% elseif auth.vars.installer_step==2 %}
+<h2>Modules configuration</h2>
+<p>
+Add the following 2 lines to your <code>config/config.yml</code>. After that, this installer will disappear.<br>
+</p>
+<pre><code>{{auth.vars.installer_modules_config}}</code></pre>
+
+<hr  style="margin: 2em 0;">
+
+<h2>Configuration examples</h2>
+Bellow you can see an example configuration for each of the selected modules. Contains only the basic usage without explanation, refer to the PicoAuth documentation for a full feature reference.
+
+    {% if "LocalAuth" in auth.vars.installer_modules_names %}
+    <h3>Local user accounts</h3>
+    Configurable via <code>config/PicoAuth/LocalAuth.yml</code>. Login form available at <code>/login</code>.<br>
+<pre><code>users: 
+  user1:
+    pwhash: $2y$10$qi5Xz.39w3pvPw2k4BvanudOoelF/Li6necs1DoQUKFRLec...
+    encoder: bcrypt
+    attributes:
+      img: https://i.imgur.com/eiqj2hk.jpg
+  user2:
+    pwhash: $2y$10$KMWh.9YkxhhNqoMRBmNU5OnlerVSIJbmIckenlW.Llsa8a9...
+    encoder: bcrypt
+    groups: [ test, group2 ]
+</code></pre>
+    {% endif %}
+
+    {% if "OAuth" in auth.vars.installer_modules_names %}
+    <h3>Login using OAuth</h3>
+    Configurable via <code>config/PicoAuth/OAuth.yml</code>. Login form available at <code>/login</code>.<br>
+<pre><code>providers:
+  Gitlab:
+    options:
+      clientId: "39bd1bbf-fd92-419b"
+      clientSecret: "edd2daa5-d6fb-49cc"
+      urlAuthorize: "https://gitlab.com/oauth/authorize"
+      urlAccessToken: "https://gitlab.com/oauth/token"
+      urlResourceOwnerDetails: "https://gitlab.com/api/v4/user"
+    attributeMap:
+      userId: username
+      displayName: name
+      img: avatar_url
+    default:
+      groups: [ g1 ]
+      attributes:
+        img: "/default.png"
+</code></pre>
+    {% endif %}
+    
+    {% if "PageACL" in auth.vars.installer_modules_names %}
+    <h3>Access control</h3>
+    Configurable via <code>config/PicoAuth/PageACL.yml</code>.<br>
+<pre><code>access:
+  /secret:
+    groups: [ default ]
+  /secret/g1:
+    groups: [ g1 ]
+  /secret/test:
+    users: [ test ]
+</code></pre>
+    {% endif %}
+    
+    {% if "PageLock" in auth.vars.installer_modules_names %}
+    <h3>Page locks</h3>
+    Configurable via <code>config/PicoAuth/PageLock.yml</code>.<br>
+<pre><code>locks:
+  secret:
+    key: "$2y$10$xwxnbUdgafIN33t7oHQGJ..."
+  lock2:
+    key: "weakKey"
+    encoder: plain
+    file: locked_screen.md
+
+urls:
+  /secret/locked:
+    lock: secret
+  /locked_A:
+    lock: lock2
+    recursive: false
+</code></pre>
+    {% endif %}
+    
+{% endif %}
+
+{% endautoescape %}
+{% endblock %}

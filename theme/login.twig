@@ -1,0 +1,66 @@
+{% extends "picoAuth_base.twig" %}
+{% set viewportClass = 'compact' %}
+
+{% block body %}
+{% autoescape %}
+
+{% include 'partials/flashes.twig' %}
+
+{% if auth.plugin.module("localAuth") %}
+<div class="box">
+    <div class="box-title">Login with username and password</div>
+    <div class="box-content">
+        <form method="POST" action="{{ "login"|link }}">
+            {{ csrf_field("login") }}
+            <div>
+                <input type="text" id="login_username" name="username" placeholder="Username" required >
+            </div>
+            <div>
+                <input type="password" id="login_pass" name="password" placeholder="Password" autocomplete="off" required>
+            </div>
+            
+            <div class="formBar">
+                <div>
+                    <button type="submit">Login</button>
+                </div>
+                <div>
+                    {% if auth.plugin.getModule("localAuth").config.registration.enabled %}
+                    <a href="{{ "register"|link }}">Register an account</a>
+                    {% endif %}
+                    {% if auth.plugin.getModule("localAuth").config.passwordReset.enabled %}
+                    <a href="{{ "password_reset"|link }}">Forgot your password?</a>
+                    {% endif %}
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{% endif %}
+
+{% if auth.plugin.module("OAuth") %}
+<div class="box">
+    <div class="box-title">Login with SSO</div>
+    <div class="box-content">
+        <form method="POST" action="{{ "login"|link }}">
+            {{ csrf_field("OAuth") }}
+            {% for provider in auth.plugin.getModule("OAuth").storage.providerNames  %}
+                <button value="{{ provider }}" name="oauth">{{ provider }}</button>
+            {% else %}
+                No SSO providers available.
+            {% endfor %}
+        </form>
+    </div>
+</div>
+{% endif %}
+
+{% if not auth.plugin.module("localAuth") and not auth.plugin.module("OAuth") %}
+<div class="box">
+    <div class="box-title">Login</div>
+    <div class="box-content">
+        No means of authentication available.
+    </div>
+</div>
+{% endif %}
+
+{% endautoescape %}
+{% endblock %}

@@ -1,0 +1,26 @@
+.flash{
+    color: black;
+    padding: 0.7em;
+    background-color: #E6F9E6;
+    margin-bottom: 1em;
+    border-left-style: solid;
+    border-left-width: 6px;
+    border-radius: 3px;
+    
+    &.success{
+        background-color: #E6F9E6;
+        border-left-color: #26CC26;
+    }
+    
+    &.error{
+        background-color: #FFE6E6;
+        border-left-color: #FF2626;
+    }
+    
+    ul {
+        margin: 0;
+        list-style-type: none;
+        padding-left: 0;
+        margin: 0;
+    }
+}

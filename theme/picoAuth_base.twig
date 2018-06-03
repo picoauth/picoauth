@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>{% if meta.title|e %}{{ meta.title|e }} | {% endif %}{{ site_title|e }}</title>
+    {% if meta.description %}
+        <meta name="description" content="{{ meta.description|e }}" />
+    {% endif %}{% if meta.robots %}
+        <meta name="robots" content="{{ meta.robots }}" />
+    {% endif %}
+    <link href="https://fonts.googleapis.com/css?family=Roboto%7CRoboto+Mono&amp;subset=latin-ext" rel="stylesheet"> 
+    <link rel="stylesheet" href="{{ auth.plugin.defaultThemeUrl }}/css/main.css" type="text/css" />
+    <link rel="stylesheet" href="{{ auth.plugin.defaultThemeUrl }}/css/picoAuth.css" type="text/css" />
+</head>
+<body>
+    <header>
+        <div class="viewport head {{viewportClass}}">
+            <a class="page_title" href="{{ "index"|link }}">
+                {{ site_title|e }}
+            </a>
+        </div>
+    </header>
+
+    <main class="viewport {{viewportClass}}">
+        <section class="content">
+            {{ block("body") }}
+        </section>
+    </main>
+</body>
+</html>

@@ -1,0 +1,10 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # Allow access only into the theme direcotry
+    RewriteRule ^(theme/css|theme/js)($|/) - [L]
+
+    # Deny any other request
+    RewriteRule ^(.*)$ - [F]
+ 
+</IfModule>

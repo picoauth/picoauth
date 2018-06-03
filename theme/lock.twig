@@ -1,0 +1,23 @@
+{% extends "picoAuth_base.twig" %}
+{% set viewportClass = 'compact' %}
+
+{% block body %}
+{% autoescape %}
+
+{% include 'partials/flashes.twig' %}
+
+{{ content|raw }}
+
+<div class="box">
+    <div class="box-title">Unlock content</div>
+    <div class="box-content">
+        <form method="POST" action="{{ auth.vars.unlock_action }}">
+            {{ csrf_field("unlock") }}
+            <input type="password" name="page-key" placeholder="Page key" autocomplete="off" required>
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+</div>
+
+{% endautoescape %}
+{% endblock %}
