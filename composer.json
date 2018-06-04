@@ -26,5 +26,8 @@
     },
     "autoload-dev": {
         "psr-4": { "PicoAuth\\": "tests/" }
+    },
+    "extra": {
+        "installer-name": "PicoAuth"
     }
 }
