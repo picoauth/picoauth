@@ -129,8 +129,8 @@ class OAuth extends AbstractAuthModule implements LoggerAwareInterface
 
             // Starts with retreiving the OAuth authorization code
             $this->startAuthentication();
-        } // Request on SSO endpoint
-        elseif ($url === $this->config["callbackPage"] && $this->isValidCallback($httpRequest)) {
+        } elseif ($url === $this->config["callbackPage"] && $this->isValidCallback($httpRequest)) {
+            // Request on the SSO endpoint
             $provider = $this->session->get("provider");
             $this->session->remove("provider");
             $providerConfig = $this->storage->getProviderByName($provider);
