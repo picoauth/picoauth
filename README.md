@@ -2,6 +2,10 @@ PicoAuth
 ====
 PicoAuth is a plugin for Pico CMS 2.0 providing various means of authentication and authorization to pages.
 
+[![Build Status](https://travis-ci.org/picoauth/picoauth.svg?branch=master)](https://travis-ci.org/picoauth/picoauth)
+[![Latest Stable Version](https://poser.pugx.org/picoauth/picoauth/v/stable)](https://packagist.org/packages/picoauth/picoauth)
+[![License](https://poser.pugx.org/picoauth/picoauth/license)](https://packagist.org/packages/picoauth/picoauth)
+
 The functionality of the plugin is contained in independent modules that can be individually enabled and configured to suit the needs of the website owner. Simple description of the modules that are included in the plugin:
 
 * **Local user accounts**
