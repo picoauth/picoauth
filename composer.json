@@ -2,8 +2,20 @@
     "name": "picoauth/picoauth",
     "type": "pico-plugin",
     "description": "PicoAuth provides authentication and authorization for flat file CMS Pico.",
-    "keywords": ["authentication","authorization","flat-file","Pico"],
+    "keywords": ["authentication","authorization","flat-file","Pico","oauth2","sso","plugin","users","picocms"],
     "license": "MIT",
+    "authors": [
+        {
+            "name": "Pavel Tuma",
+            "email": "pavel.tuma@yahoo.com",
+            "role": "Developer"
+        }
+    ],
+    "support": {
+        "wiki": "https://github.com/picoauth/picoauth/wiki",
+        "issues": "https://github.com/picoauth/picoauth/issues",
+        "source": "https://github.com/picoauth/picoauth"
+    },
     "require": {
         "php": "^5.6.0 || ^7.0",
         "picocms/pico": "^2.0",
