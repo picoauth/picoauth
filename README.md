@@ -43,7 +43,7 @@ composer require picoauth/picoauth
 
 Then visit `/PicoAuth` page (`?PicoAuth` if not using url-rewriting) in your Pico installation to view the installer, which will perform a basic security check of your Pico installation and will guide you through the rest of the installation (like selection of the modules you want to use).
 
-*It is also possible to install the plugin without composer. This is not recommended due to complicated updating, so use it only if composer cannot be used. This method of installation is described in the [Documentation](#documentation).*
+*It is also possible to install the plugin without composer - by downloading the plugin archive from the [Release page](https://github.com/picoauth/picoauth/releases) and extracting it to your `plugins` directory. This is not recommended due to complicated updating, so use it only if composer cannot be used. This method of installation is more described in the [Documentation](#documentation).*
 
 Configuration
 -------------
