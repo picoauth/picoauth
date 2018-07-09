@@ -4,7 +4,7 @@ PicoAuth is a plugin for Pico CMS 2.0 providing various means of authentication 
 
 [![Build Status](https://travis-ci.org/picoauth/picoauth.svg?branch=master)](https://travis-ci.org/picoauth/picoauth)
 [![Latest Stable Version](https://poser.pugx.org/picoauth/picoauth/v/stable)](https://packagist.org/packages/picoauth/picoauth)
-[![License](https://poser.pugx.org/picoauth/picoauth/license)](https://packagist.org/packages/picoauth/picoauth)
+[![License](https://poser.pugx.org/picoauth/picoauth/license)](https://github.com/picoauth/picoauth/blob/master/LICENSE)
 
 The functionality of the plugin is contained in independent modules that can be individually enabled and configured to suit the needs of the website owner. Simple description of the modules that are included in the plugin:
 
@@ -47,8 +47,12 @@ Then visit `/PicoAuth` page (`?PicoAuth` if not using url-rewriting) in your Pic
 
 Configuration
 -------------
-The main plugin configuration is located in Pico's `config/config.yml`. Each enabled authentication/authorization module has its own configuration in the `config/PicoAuth` directory. Usually the file name corresponds to the module name (e.g. `LocalAuth.yml`, `OAuth.yml`, `PageACL.yml`, `/PageLock.yml`). Refer to the **plugin [Documentation](#documentation) for the full configuration reference**. See project [picoauth/picoauth-examples](https://github.com/picoauth/picoauth-examples) for in-depth configuration examples.
+The main plugin configuration is located in Pico's `config/config.yml`. Each enabled authentication/authorization module has its own configuration in the `config/PicoAuth` directory. Usually the file name corresponds to the module name (e.g. `LocalAuth.yml`, `OAuth.yml`, `PageACL.yml`, `PageLock.yml`). Refer to the **plugin [Documentation](#documentation) for the full configuration reference**. See project [picoauth/picoauth-examples](https://github.com/picoauth/picoauth-examples) for in-depth configuration examples.
 
-Pre-release notes
------------------
-This is the first public version of the plugin and is intended **for testing only**. The first stable version will be released in a few weeks.
+### See also
+* [picoauth/picoauth-theme](https://github.com/picoauth/picoauth-theme) - An example theme for Pico CMS using the PicoAuth plugin. Can serve as a template for customizing your own theme to work with PicoAuth. See the Demo: [https://picoauth.xyz](https://picoauth.xyz).
+* [picoauth/picoauth-examples](https://github.com/picoauth/picoauth-examples) - in-depth configuration examples.
+
+Getting help
+------------
+If you encounter a problem with the plugin that cannot be resolved by reading the corresponding section of the [Documentation](#documentation), you can create a new Issue. Please describe the problem as clear as possible.
