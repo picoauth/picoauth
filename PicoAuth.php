@@ -1,7 +1,7 @@
 <?php
 
 /**
- * PicoAuth
+ * PicoAuth wrapper class
  *
  * The implementation of the plugin itself is in PicoAuthPlugin class.
  * The purpose of this class is only to register the plugin's autoloader

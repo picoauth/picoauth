@@ -11,6 +11,11 @@ use PicoAuth\Utils;
 
 /**
  * The main PicoAuth plugin class
+ *
+ * @author  Pavel Tuma
+ * @link    https://github.com/picoauth/picoauth
+ * @license http://opensource.org/licenses/MIT The MIT License
+ * @version 1.0
  */
 class PicoAuthPlugin implements PicoAuthInterface
 {
@@ -19,7 +24,7 @@ class PicoAuthPlugin implements PicoAuthInterface
      * PicoAuth plugin version
      * @var string
      */
-    const VERSION = '1.0.0-beta';
+    const VERSION = '1.0.0';
     
     /**
      * PicoAuth version ID
