@@ -318,7 +318,7 @@ class PicoAuthPlugin implements PicoAuthInterface
 
         $this_instance = $this;
         $twig->addFunction(
-            new \Twig_SimpleFunction(
+            new \Twig\TwigFunction(
                 'csrf_token',
                 function ($action = null) use (&$this_instance) {
                     return $this_instance->csrf->getToken($action);
@@ -327,7 +327,7 @@ class PicoAuthPlugin implements PicoAuthInterface
             )
         );
         $twig->addFunction(
-            new \Twig_SimpleFunction(
+            new \Twig\TwigFunction(
                 'csrf_field',
                 function ($action = null) use (&$this_instance) {
                     return '<input type="hidden" name="csrf_token" value="'
@@ -748,10 +748,10 @@ class PicoAuthPlugin implements PicoAuthInterface
         }
 
         // Additional container entries
-        $this->container->share('configDir', new \League\Container\Argument\RawArgument($configDir));
-        $this->container->share('PicoAuth', $this);
+        $this->container->addShared('configDir', new \League\Container\Argument\Literal\StringArgument($configDir));
+        $this->container->addShared('PicoAuth', $this);
         if (!$this->config["rateLimit"]) {
-            $this->container->share('RateLimit', \PicoAuth\Security\RateLimiting\NullRateLimit::class);
+            $this->container->addShared('RateLimit', \PicoAuth\Security\RateLimiting\NullRateLimit::class);
         }
     }
 
