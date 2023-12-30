@@ -318,7 +318,7 @@ class PicoAuthPlugin implements PicoAuthInterface
 
         $this_instance = $this;
         $twig->addFunction(
-            new \Twig_SimpleFunction(
+            new \Twig\TwigFunction(
                 'csrf_token',
                 function ($action = null) use (&$this_instance) {
                     return $this_instance->csrf->getToken($action);
@@ -327,7 +327,7 @@ class PicoAuthPlugin implements PicoAuthInterface
             )
         );
         $twig->addFunction(
-            new \Twig_SimpleFunction(
+            new \Twig\TwigFunction(
                 'csrf_field',
                 function ($action = null) use (&$this_instance) {
                     return '<input type="hidden" name="csrf_token" value="'

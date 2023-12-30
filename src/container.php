@@ -9,13 +9,14 @@
  * instead of the default one.
  */
 
-use League\Container\Argument\RawArgument;
+use League\Container\Argument\Literal\StringArgument;
+use League\Container\Argument\Literal\ArrayArgument;
 use League\Container\Container;
 
-$container = new Container;
+$container = new League\Container\Container();
 
 // Version of this file, so PicoAuth can detect possibly outdated definition
-$container->share('Version', new RawArgument(10000));
+$container->addShared('Version', new StringArgument(10000));
 
 
 // ****************** Configuration cache setup ********************************
@@ -23,37 +24,37 @@ $container->share('Version', new RawArgument(10000));
 // Any implementation of Psr\SimpleCache\CacheInterface
 // e.g. from package cache/cache: $pool = new ApcuCachePool();
 $pool = 'PicoAuth\Cache\NullCache';
-$container->share('cache', $pool);
+$container->addShared('cache', $pool);
 
 // ****************** Logger setup *********************************************
 
 // Any implementation of \Psr\Log\LoggerInterface
 // e.g. $log = new \Monolog\Logger('name');
 $log = 'Psr\Log\NullLogger';
-$container->share('logger', $log);
+$container->addShared('logger', $log);
 
 // ****************** Mail setup ***********************************************
 
 // Any implementation of PicoAuth\Mail\MailerInterface
 //include 'Mailer.php';
-//$container->share('mailer','PicoAuth\Mail\Mailer');
+//$container->addShared('mailer','PicoAuth\Mail\Mailer');
 
 // ****************** Password policy setup ************************************
 
 // Specify constraints of the default policy
 // Or provide an alternative implementation of PicoAuth\Security\Password\Policy\PasswordPolicyInterface
 
-$container->share('PasswordPolicy', 'PicoAuth\Security\Password\Policy\PasswordPolicy')
-    ->withMethodCall('minLength', [new RawArgument(8)]);
+$container->addShared('PasswordPolicy', 'PicoAuth\Security\Password\Policy\PasswordPolicy')
+    ->addMethodCall('minLength', [new StringArgument(8)]);
 
 // ****************** Session management configuration *************************
 
 // PicoAuth default session driver
-$container->share('session', 'PicoAuth\Session\SymfonySession')
-    ->withArgument('session.storage');
+$container->addShared('session', 'PicoAuth\Session\SymfonySession')
+    ->addArgument('session.storage');
 
-$container->share('session.storage', 'Symfony\Component\HttpFoundation\Session\Storage\NativeSessionStorage')
-    ->withArgument(new RawArgument(array(
+$container->addShared('session.storage', 'Symfony\Component\HttpFoundation\Session\Storage\NativeSessionStorage')
+    ->addArgument(new ArrayArgument(array(
         //"cookie_secure" => "0",       // Set to "1" if using HTTPS
         "cookie_lifetime" => "0",       // Until user closes the browser
         "gc_maxlifetime" => "7200",     // Activity timeout 2hrs
@@ -64,48 +65,48 @@ $container->share('session.storage', 'Symfony\Component\HttpFoundation\Session\S
 // *****************************************************************************
 
 // PicoAuth modules
-$container->share('LocalAuth', 'PicoAuth\Module\Authentication\LocalAuth\LocalAuth')
-    ->withArgument('PicoAuth')
-    ->withArgument('session')
-    ->withArgument('LocalAuth.storage')
-    ->withArgument('RateLimit');
+$container->addShared('LocalAuth', 'PicoAuth\Module\Authentication\LocalAuth\LocalAuth')
+    ->addArgument('PicoAuth')
+    ->addArgument('session')
+    ->addArgument('LocalAuth.storage')
+    ->addArgument('RateLimit');
 
-$container->share('OAuth', 'PicoAuth\Module\Authentication\OAuth')
-    ->withArgument('PicoAuth')
-    ->withArgument('session')
-    ->withArgument('OAuth.storage')
-    ->withMethodCall('setLogger', ['logger']);
+$container->addShared('OAuth', 'PicoAuth\Module\Authentication\OAuth')
+    ->addArgument('PicoAuth')
+    ->addArgument('session')
+    ->addArgument('OAuth.storage')
+    ->addMethodCall('setLogger', ['logger']);
 
-$container->share('PageACL', 'PicoAuth\Module\Authorization\PageACL')
-    ->withArgument('PicoAuth')
-    ->withArgument('session')
-    ->withArgument('PageACL.storage');
+$container->addShared('PageACL', 'PicoAuth\Module\Authorization\PageACL')
+    ->addArgument('PicoAuth')
+    ->addArgument('session')
+    ->addArgument('PageACL.storage');
 
-$container->share('PageLock', 'PicoAuth\Module\Authorization\PageLock')
-    ->withArgument('PicoAuth')
-    ->withArgument('session')
-    ->withArgument('PageLock.storage')
-    ->withArgument('RateLimit');
+$container->addShared('PageLock', 'PicoAuth\Module\Authorization\PageLock')
+    ->addArgument('PicoAuth')
+    ->addArgument('session')
+    ->addArgument('PageLock.storage')
+    ->addArgument('RateLimit');
 
-$container->share('Installer', 'PicoAuth\Module\Generic\Installer')
-    ->withArgument('PicoAuth');
+$container->addShared('Installer', 'PicoAuth\Module\Generic\Installer')
+    ->addArgument('PicoAuth');
 
 // Storage
-$container->share('LocalAuth.storage', 'PicoAuth\Storage\LocalAuthFileStorage')
-    ->withArgument('configDir')
-    ->withArgument('cache');
-$container->share('OAuth.storage', 'PicoAuth\Storage\OAuthFileStorage')
-    ->withArgument('configDir')
-    ->withArgument('cache');
-$container->share('PageACL.storage', 'PicoAuth\Storage\PageACLFileStorage')
-    ->withArgument('configDir')
-    ->withArgument('cache');
-$container->share('PageLock.storage', 'PicoAuth\Storage\PageLockFileStorage')
-    ->withArgument('configDir')
-    ->withArgument('cache');
-$container->share('RateLimit.storage', 'PicoAuth\Storage\RateLimitFileStorage')
-    ->withArgument('configDir')
-    ->withArgument('cache');
+$container->addShared('LocalAuth.storage', 'PicoAuth\Storage\LocalAuthFileStorage')
+    ->addArgument('configDir')
+    ->addArgument('cache');
+$container->addShared('OAuth.storage', 'PicoAuth\Storage\OAuthFileStorage')
+    ->addArgument('configDir')
+    ->addArgument('cache');
+$container->addShared('PageACL.storage', 'PicoAuth\Storage\PageACLFileStorage')
+    ->addArgument('configDir')
+    ->addArgument('cache');
+$container->addShared('PageLock.storage', 'PicoAuth\Storage\PageLockFileStorage')
+    ->addArgument('configDir')
+    ->addArgument('cache');
+$container->addShared('RateLimit.storage', 'PicoAuth\Storage\RateLimitFileStorage')
+    ->addArgument('configDir')
+    ->addArgument('cache');
 
 // Password hashing options
 $container->add('bcrypt', 'PicoAuth\Security\Password\Encoder\BCrypt');
@@ -113,29 +114,29 @@ $container->add('argon2i', 'PicoAuth\Security\Password\Encoder\Argon2i');
 $container->add('plain', 'PicoAuth\Security\Password\Encoder\Plaintext');
 
 // Rate limiting
-$container->share('RateLimit', 'PicoAuth\Security\RateLimiting\RateLimit')
-    ->withArgument('RateLimit.storage')
-    ->withMethodCall('setLogger', ['logger']);
+$container->addShared('RateLimit', 'PicoAuth\Security\RateLimiting\RateLimit')
+    ->addArgument('RateLimit.storage')
+    ->addMethodCall('setLogger', ['logger']);
 
 // LocalAuth extensions
-$container->share('PasswordReset', 'PicoAuth\Module\Authentication\LocalAuth\PasswordReset')
-    ->withArgument('PicoAuth')
-    ->withArgument('session')
-    ->withArgument('LocalAuth.storage')
-    ->withArgument('RateLimit')
-//  ->withMethodCall('setMailer',['mailer'])
-    ->withMethodCall('setLogger', ['logger']);
+$container->addShared('PasswordReset', 'PicoAuth\Module\Authentication\LocalAuth\PasswordReset')
+    ->addArgument('PicoAuth')
+    ->addArgument('session')
+    ->addArgument('LocalAuth.storage')
+    ->addArgument('RateLimit')
+//  ->addMethodCall('setMailer',['mailer'])
+    ->addMethodCall('setLogger', ['logger']);
 
-$container->share('Registration', 'PicoAuth\Module\Authentication\LocalAuth\Registration')
-    ->withArgument('PicoAuth')
-    ->withArgument('session')
-    ->withArgument('LocalAuth.storage')
-    ->withArgument('RateLimit')
-    ->withMethodCall('setLogger', ['logger']);
+$container->addShared('Registration', 'PicoAuth\Module\Authentication\LocalAuth\Registration')
+    ->addArgument('PicoAuth')
+    ->addArgument('session')
+    ->addArgument('LocalAuth.storage')
+    ->addArgument('RateLimit')
+    ->addMethodCall('setLogger', ['logger']);
 
-$container->share('EditAccount', 'PicoAuth\Module\Authentication\LocalAuth\EditAccount')
-    ->withArgument('PicoAuth')
-    ->withArgument('session')
-    ->withArgument('LocalAuth.storage');
+$container->addShared('EditAccount', 'PicoAuth\Module\Authentication\LocalAuth\EditAccount')
+    ->addArgument('PicoAuth')
+    ->addArgument('session')
+    ->addArgument('LocalAuth.storage');
 
 return $container;
