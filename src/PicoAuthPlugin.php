@@ -748,10 +748,10 @@ class PicoAuthPlugin implements PicoAuthInterface
         }
 
         // Additional container entries
-        $this->container->share('configDir', new \League\Container\Argument\RawArgument($configDir));
-        $this->container->share('PicoAuth', $this);
+        $this->container->addShared('configDir', new \League\Container\Argument\Literal\StringArgument($configDir));
+        $this->container->addShared('PicoAuth', $this);
         if (!$this->config["rateLimit"]) {
-            $this->container->share('RateLimit', \PicoAuth\Security\RateLimiting\NullRateLimit::class);
+            $this->container->addShared('RateLimit', \PicoAuth\Security\RateLimiting\NullRateLimit::class);
         }
     }
 
